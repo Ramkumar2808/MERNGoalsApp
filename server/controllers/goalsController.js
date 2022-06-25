@@ -1,13 +1,14 @@
 import Goal from '../models/Goal.js';
 
 export const getGoals = async (req, res) => {
-  const goals = await Goal.find();
+  const goals = await Goal.find({ user: req.user.id });
   res.status(200).json(goals);
 };
 
 export const storeGoals = async (req, res) => {
   const goal = await Goal.create({
     goal: req.body.goal,
+    user: req.user.id,
   });
   res.status(201).json(goal);
 };
